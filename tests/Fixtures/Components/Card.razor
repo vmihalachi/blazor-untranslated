@@ -1,0 +1,16 @@
+<div class="@CssClass" title="@Title" aria-label="@Label">
+    <p>@Text</p>
+    <p>@Description</p>
+    <input placeholder="@Placeholder" />
+    <small>@Caption</small>
+</div>
+
+@code {
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public string? Label { get; set; }
+    [Parameter] public string? Placeholder { get; set; }
+    [Parameter] public string? Text { get; set; }
+    [Parameter] public string? Caption { get; set; }
+    [Parameter] public string? CssClass { get; set; }
+}

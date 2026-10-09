@@ -1,0 +1,12 @@
+@inject IStringLocalizer<Ignored> L
+
+<script suppress-error="BL9992">console.log("script words");</script>
+<style>.note::after { content: "style words"; }</style>
+<!-- An HTML comment with words -->
+@* A Razor comment with words *@
+<p>42</p>
+<p>3.14 % ! ? — 2026-10-09</p>
+<a href="/contact-page" class="button primary" id="contact-link" rel="nofollow">→</a>
+<p>@L["Greeting"]</p>
+<Card Title="@L["News"]" CssClass="wide card" />
+<p title="@L["Tip"]">@L["Body"]</p>

@@ -1,0 +1,15 @@
+<Project>
+
+  <!--
+    Passes the two settings to the UNT001 analyzer. Both are comma-separated lists: the compiler receives MSBuild
+    properties through an analyzer config file, where ';' and '#' start a comment.
+
+      UntranslatedAllowedTerms     literal text allowed anywhere, such as a brand name: Contoso,Pro
+      UntranslatedTextAttributes   attributes and component parameters to check besides the defaults: data-tooltip,Caption
+  -->
+  <ItemGroup>
+    <CompilerVisibleProperty Include="UntranslatedAllowedTerms" />
+    <CompilerVisibleProperty Include="UntranslatedTextAttributes" />
+  </ItemGroup>
+
+</Project>

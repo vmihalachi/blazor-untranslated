@@ -1,0 +1,14 @@
+@typeparam TItem
+
+<label>@Label</label>
+<ul>
+    @foreach (var item in Items)
+    {
+        <li>@item</li>
+    }
+</ul>
+
+@code {
+    [Parameter] public IReadOnlyList<TItem> Items { get; set; } = Array.Empty<TItem>();
+    [Parameter] public string? Label { get; set; }
+}

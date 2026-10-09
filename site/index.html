@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blazor.Untranslated: untranslated text fails the build</title>
+<meta name="description" content="Blazor.Untranslated is an MIT Roslyn analyzer that fails the build when a Blazor component renders literal text instead of a localized resource. Rule UNT001, for .NET 8, 9 and 10.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Blazor.Untranslated">
+<meta property="og:description" content="Untranslated text in Blazor components fails the build. A Roslyn analyzer, MIT.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="./" aria-label="Blazor.Untranslated home">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="currentColor"/><rect x="8" y="10" width="16" height="3" rx="1.5" fill="var(--bg)"/><path d="M8 20.5q2 -2.6 4 0t4 0t4 0t4 0" fill="none" stroke="var(--accent-on-mark)" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <span>Blazor.Untranslated</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#rules">What it catches</a></li>
+        <li><a href="#configure">Configure</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#install">Install</a></li>
+        <li><a class="gh" href="https://github.com/vmihalachi/blazor-untranslated"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="version"><a href="https://github.com/vmihalachi/blazor-untranslated/blob/main/CHANGELOG.md">v0.1.0</a><span>Roslyn analyzer · .NET 8+ · MIT</span></p>
+      <h1>Untranslated text fails the build</h1>
+      <p class="lede">A Roslyn analyzer for Blazor. When a <code>.razor</code> component renders literal text instead of a localized resource, <code>dotnet build</code> stops and points at the line. Locally, in the IDE and in CI, with nothing to set up.</p>
+
+      <div class="install" data-tabs>
+        <div class="tablist" role="tablist" aria-label="Install with">
+          <button role="tab" id="i-cli" aria-selected="true" aria-controls="ip-cli">.NET CLI</button>
+          <button role="tab" id="i-proj" aria-selected="false" aria-controls="ip-proj" tabindex="-1">.csproj</button>
+        </div>
+        <div class="install-line" role="tabpanel" id="ip-cli" aria-labelledby="i-cli">
+          <code>dotnet add package Blazor.Untranslated</code>
+          <button class="copy" type="button" aria-label="Copy the dotnet command">Copy</button>
+        </div>
+        <div class="install-line" role="tabpanel" id="ip-proj" aria-labelledby="i-proj" hidden>
+          <code>&lt;PackageReference Include="Blazor.Untranslated" Version="0.1.0" PrivateAssets="all" /&gt;</code>
+          <button class="copy" type="button" aria-label="Copy the PackageReference line">Copy</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn primary" href="https://github.com/vmihalachi/blazor-untranslated">View on GitHub</a>
+        <a class="btn" href="#rules">What it catches</a>
+      </div>
+    </div>
+
+    <figure class="hero-code" id="demo" style="margin:0">
+      <div class="code-head">
+        <span class="code-file strong">Pages/Home.razor</span>
+        <span class="code-file">3 literals, 1 resource</span>
+      </div>
+<pre tabindex="0" aria-label="Pages/Home.razor"><code><span class="ln">1</span><span class="k">@page</span> <span class="s">"/"</span>
+<span class="ln">2</span><span class="k">@inject</span> <span class="t">IStringLocalizer</span>&lt;<span class="t">Home</span>&gt; L
+<span class="ln">3</span>
+<span class="ln">4</span>&lt;<span class="k">h1</span>&gt;<span class="flag">Coming soon</span>&lt;/<span class="k">h1</span>&gt;
+<span class="ln">5</span>&lt;<span class="k">p</span>&gt;@L[<span class="s">"Intro"</span>]&lt;/<span class="k">p</span>&gt;
+<span class="ln">6</span>&lt;<span class="k">img</span> <span class="t">src</span>=<span class="s">"logo.svg"</span> <span class="t">alt</span>=<span class="s">"<span class="flag">Company logo</span>"</span> /&gt;
+<span class="ln">7</span>&lt;<span class="t">Card</span> <span class="t">Title</span>=<span class="s">"<span class="flag">Latest news</span>"</span> <span class="t">Text</span>=<span class="s">"@L["News"]"</span> /&gt;</code></pre>
+      <div class="terminal">
+<pre tabindex="0" aria-label="Build output" style="white-space:pre-wrap"><code><span class="line"><span class="prompt">$</span> dotnet build</span>
+<span class="line"><span class="loc">Home.razor(4,5)</span>: <span class="err">error UNT001</span>: Literal text "Coming soon" must come from a resource</span>
+<span class="line"><span class="loc">Home.razor(6,26)</span>: <span class="err">error UNT001</span>: Literal text "Company logo" must come from a resource</span>
+<span class="line"><span class="loc">Home.razor(7,14)</span>: <span class="err">error UNT001</span>: Literal text "Latest news" must come from a resource</span>
+<span class="line"><span class="fail">Build failed</span> with 3 error(s)</span></code></pre>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="promises" aria-label="Principles">
+  <div class="wrap promise-grid">
+    <div>
+      <h2>Sees what Razor renders</h2>
+      <p>The rule reads the C# the Razor compiler generates, so it checks exactly what reaches the page, through <code>@if</code>, <code>@foreach</code> and generic components, instead of guessing from the markup.</p>
+    </div>
+    <div>
+      <h2>Fails every build</h2>
+      <p><code>UNT001</code> is an error. It fails <code>dotnet build</code>, the IDE and CI the same way, before anything is pushed. No script, no extra CI step, no Node.</p>
+    </div>
+    <div>
+      <h2>Nothing at runtime</h2>
+      <p>A development dependency: it runs inside the compiler and adds nothing to your output. It doesn't flow to projects that reference yours.</p>
+    </div>
+  </div>
+</section>
+
+<section id="rules" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What it catches</h2>
+      <p>Literal text with letters, wherever people see or hear it. Text from a resource passes, and so does anything without letters.</p>
+    </div>
+
+    <div class="parts" role="table" aria-label="What UNT001 reports">
+      <div class="parts-row parts-th" role="row">
+        <span role="columnheader">Where</span>
+        <span role="columnheader">Example</span>
+        <span role="columnheader">Result</span>
+      </div>
+
+      <div class="parts-row" role="row">
+        <div role="cell"><h3>Markup text</h3></div>
+        <div role="cell"><code class="sample">&lt;h1&gt;<mark>Coming soon</mark>&lt;/h1&gt;</code></div>
+        <div role="cell" class="result"><span class="chip err">UNT001</span><p>Inside <code>@if</code> and <code>@foreach</code> blocks too.</p></div>
+      </div>
+
+      <div class="parts-row" role="row">
+        <div role="cell"><h3>Text content and expressions</h3></div>
+        <div role="cell"><code class="sample">@(open ? "<mark>Open now</mark>" : "<mark>Closed</mark>")
+@($"<mark>Welcome back</mark>, {name}")
+@("<mark>Total:</mark> " + count)</code></div>
+        <div role="cell" class="result"><span class="chip err">UNT001</span><p>Each literal, through conditionals, <code>??</code>, concatenation, interpolation and casts.</p></div>
+      </div>
+
+      <div class="parts-row" role="row">
+        <div role="cell"><h3>Visible attributes</h3></div>
+        <div role="cell"><code class="sample">&lt;img alt="<mark>Company logo</mark>" /&gt;
+&lt;input placeholder="<mark>Your email</mark>" /&gt;</code></div>
+        <div role="cell" class="result"><span class="chip err">UNT001</span><p><code>title</code>, <code>alt</code>, <code>placeholder</code>, <code>label</code>, <code>description</code>, <code>text</code>, and the <code>aria-*</code> text attributes.</p></div>
+      </div>
+
+      <div class="parts-row" role="row">
+        <div role="cell"><h3>Component parameters</h3></div>
+        <div role="cell"><code class="sample">&lt;Card Title="<mark>Latest news</mark>" /&gt;
+&lt;Picker Items="days" Label="<mark>Pick a day</mark>" /&gt;</code></div>
+        <div role="cell" class="result"><span class="chip err">UNT001</span><p>Parameters with those names, such as <code>Title</code>, <code>Label</code> and <code>Text</code>. Generic components included.</p></div>
+      </div>
+
+      <div class="parts-row" role="row">
+        <div role="cell"><h3>Allowed terms</h3></div>
+        <div role="cell"><code class="sample">&lt;p&gt;Contoso Pro&lt;/p&gt;
+&lt;p&gt;<mark>Welcome to</mark> Contoso&lt;/p&gt;</code></div>
+        <div role="cell" class="result"><span class="chips"><span class="chip ok">Passes</span><span class="chip err">UNT001</span></span><p>Terms you list are removed before the check, so the brand alone passes and a sentence around it does not.</p></div>
+      </div>
+
+      <div class="parts-row" role="row">
+        <div role="cell"><h3>Resources and no letters</h3></div>
+        <div role="cell"><code class="sample">&lt;p&gt;@L["Intro"]&lt;/p&gt;
+&lt;p&gt;42 · 3.14 % →&lt;/p&gt;</code></div>
+        <div role="cell" class="result"><span class="chip ok">Passes</span><p>Numbers, symbols and punctuation are the same in every language.</p></div>
+      </div>
+
+      <div class="parts-row" role="row">
+        <div role="cell"><h3>Code, not text</h3></div>
+        <div role="cell"><code class="sample">&lt;a href="/about" class="nav-link"&gt;
+&lt;script&gt;, &lt;style&gt;, &lt;!-- --&gt;, @* *@</code></div>
+        <div role="cell" class="result"><span class="chip ok">Ignored</span><p>Every other attribute, script and style content, HTML and Razor comments.</p></div>
+      </div>
+    </div>
+
+    <p class="footnote">Text built in <code>@code</code> or C# and rendered through a variable is not seen; neither are missing translations of existing keys, nor <code>.cshtml</code> views. Keep that text in resources and check it in review.</p>
+  </div>
+</section>
+
+<section id="configure" class="section alt">
+  <div class="wrap split">
+    <div class="split-copy">
+      <h2>Two properties. Both optional.</h2>
+      <p>Put them in the project that renders the components. Items are separated by commas: the compiler receives MSBuild properties through an analyzer config file, where <code>;</code> and <code>#</code> start a comment.</p>
+      <div class="code-card">
+<pre tabindex="0"><code>&lt;<span class="k">PropertyGroup</span>&gt;
+  <span class="c">&lt;!-- Same in every language --&gt;</span>
+  &lt;<span class="k">UntranslatedAllowedTerms</span>&gt;Contoso,Pro&lt;/<span class="k">UntranslatedAllowedTerms</span>&gt;
+  <span class="c">&lt;!-- Checked besides the defaults --&gt;</span>
+  &lt;<span class="k">UntranslatedTextAttributes</span>&gt;data-tooltip,Caption&lt;/<span class="k">UntranslatedTextAttributes</span>&gt;
+&lt;/<span class="k">PropertyGroup</span>&gt;</code></pre>
+      </div>
+    </div>
+    <dl class="sources">
+      <div>
+        <dt><code>UntranslatedAllowedTerms</code></dt>
+        <dd>Text that stays the same in every language, such as brand and plan names. A term is removed from the text before the check, longest first.</dd>
+      </div>
+      <div>
+        <dt><code>UntranslatedTextAttributes</code></dt>
+        <dd>Attribute and component parameter names to check besides the defaults, compared without case: your own <code>data-tooltip</code> or a <code>Caption</code> parameter.</dd>
+      </div>
+      <div>
+        <dt>Turning it off</dt>
+        <dd><code>UNT001</code> is reported in <code>.razor</code> files, where <code>#pragma</code> can't reach it. For a whole project, add it to <code>NoWarn</code> or set <code>dotnet_diagnostic.UNT001.severity = none</code> in <code>.editorconfig</code>.</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<section id="how" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>How it works</h2>
+      <p>By the time the analyzer runs, the Razor compiler has already split markup from C#. The rule only has to read the calls that build the page.</p>
+    </div>
+
+    <ol class="pipeline">
+      <li>
+        <span class="step">01 · you write</span>
+        <h3>A component</h3>
+        <code class="sample">&lt;h1&gt;Coming soon&lt;/h1&gt;</code>
+      </li>
+      <li>
+        <span class="step">02 · Razor generates</span>
+        <h3>C# for the render tree</h3>
+        <code class="sample">AddMarkupContent(0,
+  "&lt;h1&gt;Coming soon&lt;/h1&gt;")</code>
+      </li>
+      <li>
+        <span class="step">03 · the analyzer reads</span>
+        <h3>Every RenderTreeBuilder call</h3>
+        <p><code>AddMarkupContent</code>, <code>AddContent</code>, <code>AddAttribute</code> and <code>AddComponentParameter</code>, and the literals they receive.</p>
+      </li>
+      <li>
+        <span class="step">04 · you see</span>
+        <h3>The line in your .razor file</h3>
+        <code class="sample">Home.razor(4,5):
+error UNT001</code>
+      </li>
+    </ol>
+
+    <ul class="relies" aria-label="What the rule relies on in Razor's generated code">
+      <li><strong>The <code>#pragma checksum</code></strong> at the top of each generated file, which names the <code>.razor</code> source.</li>
+      <li><strong>Literal values at the call sites</strong>, wrapped at most in casts, conditionals, concatenation, interpolation and <code>RuntimeHelpers.TypeCheck</code>.</li>
+      <li><strong>The <code>TypeInference</code> helpers</strong> that render generic components, whose literals sit at the call site.</li>
+      <li><strong>The <code>.razor</code> files as additional files</strong>, which the analyzer reads to point at the line and column.</li>
+    </ul>
+
+    <div class="verdict">
+      <span class="pass"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>.NET 8 SDK</span>
+      <span class="pass"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>.NET 9 SDK</span>
+      <span class="pass"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>.NET 10 SDK</span>
+      <span class="verdict-note">A Razor compiler that changed this shape could silence the rule, so CI builds fixture components with the package on every supported SDK and compares each reported line with markers in the fixtures.</span>
+    </div>
+  </div>
+</section>
+
+<section id="install" class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Install</h2>
+      <p>Blazor.Untranslated is <code>0.x</code>: any minor version may change what the rule reports, so pin a version.</p>
+    </div>
+    <div class="install-grid">
+      <div class="install-card">
+        <h3>NuGet</h3>
+        <p class="req">A development dependency: nothing ships with your app</p>
+<pre tabindex="0"><code>dotnet add package Blazor.Untranslated
+
+<span class="c">&lt;!-- or, in the .csproj --&gt;</span>
+&lt;<span class="k">PackageReference</span> <span class="t">Include</span>=<span class="s">"Blazor.Untranslated"</span> <span class="t">Version</span>=<span class="s">"0.1.0"</span>
+                  <span class="t">PrivateAssets</span>=<span class="s">"all"</span> /&gt;</code></pre>
+        <p>Then build. The first literal fails it.</p>
+      </div>
+      <div class="install-card">
+        <h3>Works with</h3>
+        <p class="req">Any project that compiles <code>.razor</code> components</p>
+        <ul>
+          <li>The .NET 8, 9 and 10 SDKs (built against Roslyn 4.8).</li>
+          <li>Blazor Server, WebAssembly, static server rendering and MAUI Blazor Hybrid.</li>
+          <li>Any localization: <code>IStringLocalizer</code>, generated <code>.resx</code> classes, your own lookup.</li>
+          <li>Not <code>.cshtml</code> views or Razor Pages.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="notice"><strong>No support.</strong> Built for my own projects and shared as is: issues and pull requests aren't monitored, and any release may change or break things.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p>MIT licensed. © 2026 Vlad Mihalachi.</p>
+    <ul>
+      <li><a href="https://github.com/vmihalachi/blazor-untranslated">Source</a></li>
+      <li><a href="https://github.com/vmihalachi/blazor-untranslated/blob/main/CHANGELOG.md">Changelog</a></li>
+      <li><a href="https://www.nuget.org/packages/Blazor.Untranslated">NuGet</a></li>
+      <li><a href="https://github.com/vmihalachi/blazor-untranslated/blob/main/LICENSE">License</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="site.js" defer></script>
+</body>
+</html>

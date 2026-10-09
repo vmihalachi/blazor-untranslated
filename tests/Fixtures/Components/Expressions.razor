@@ -1,0 +1,11 @@
+<p>@(open ? "Open now" : "Closed today")</p> @*UNT001*@ @*UNT001*@
+<p>@("Total: " + count)</p> @*UNT001*@
+<p>@($"Welcome back, {count}")</p> @*UNT001*@
+<p>@(nickname ?? "Guest user")</p> @*UNT001*@
+<p title="@(open ? "Tip shown" : "Tip hidden")"></p> @*UNT001*@ @*UNT001*@
+
+@code {
+    private readonly bool open = true;
+    private readonly int count = 3;
+    private readonly string? nickname = null;
+}

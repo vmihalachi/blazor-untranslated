@@ -1,0 +1,22 @@
+<Project>
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+    <!-- The package version, set by the release workflow from the tag (vX.Y.Z). -->
+    <UntranslatedVersion Condition="'$(UntranslatedVersion)' == ''">0.1.0</UntranslatedVersion>
+    <Version>$(UntranslatedVersion)</Version>
+    <Authors>Vlad Mihalachi</Authors>
+    <Copyright>© 2026 Vlad Mihalachi</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://vmihalachi.github.io/blazor-untranslated/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/vmihalachi/blazor-untranslated</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>blazor;razor;localization;i18n;analyzer;roslyn</PackageTags>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <!--
+    Built by the tests, never by the solution: they copy this folder elsewhere and build it against the packed
+    analyzer. Every expected UNT001 is marked in the .razor files with a Razor comment on the same line.
+  -->
+  <PropertyGroup>
+    <FixtureTargetFramework Condition="'$(FixtureTargetFramework)' == ''">net10.0</FixtureTargetFramework>
+    <TargetFramework>$(FixtureTargetFramework)</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UntranslatedAllowedTerms>Contoso,Pro</UntranslatedAllowedTerms>
+    <UntranslatedTextAttributes>data-tooltip,Caption</UntranslatedTextAttributes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Blazor.Untranslated" Version="$(UntranslatedVersion)" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>
