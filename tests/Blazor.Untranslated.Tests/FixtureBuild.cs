@@ -64,6 +64,8 @@ public sealed partial class FixtureBuild : IDisposable
             arguments.Add($"-p:FixtureTargetFramework=net{sdk}");
         }
 
+        RequestedSdk = sdk;
+        SdkVersion = Run(work, "--version").Output.Trim();
         var build = Run(work, [.. arguments]);
         Output = build.Output;
         ExitCode = build.ExitCode;
@@ -79,6 +81,12 @@ public sealed partial class FixtureBuild : IDisposable
     }
 
     public string SourceDirectory { get; }
+
+    /// <summary>The value of <c>UNTRANSLATED_FIXTURE_SDK</c>, if any.</summary>
+    public string? RequestedSdk { get; }
+
+    /// <summary>The version of the SDK that built the fixture.</summary>
+    public string SdkVersion { get; }
 
     /// <summary>The console output of the fixture build.</summary>
     public string Output { get; }

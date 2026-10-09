@@ -48,6 +48,15 @@ public sealed partial class FixtureTests(FixtureBuild build) : IClassFixture<Fix
         Assert.True(build.Reported.Count > 0 && build.Reported.Count == build.Errors.Count, build.Output);
     }
 
+    [Fact]
+    public void Builds_with_the_requested_SDK()
+    {
+        if (!string.IsNullOrEmpty(build.RequestedSdk))
+        {
+            Assert.StartsWith(build.RequestedSdk + ".", build.SdkVersion, StringComparison.Ordinal);
+        }
+    }
+
     [GeneratedRegex(@"@\*\s*UNT001\s*\*@")]
     private static partial Regex Marker();
 }
