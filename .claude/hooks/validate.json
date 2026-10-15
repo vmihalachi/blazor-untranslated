@@ -1,0 +1,16 @@
+{
+  "patterns": [
+    "^(src|tests)/.*\\.(cs|razor|resx|csproj|props)$",
+    "^Directory\\..*\\.props$",
+    "^CHANGELOG\\.md$",
+    "^site/index\\.html$"
+  ],
+  "exclude": [
+    "/(bin|obj)/"
+  ],
+  "checks": [
+    ["scripts/verify.sh", "--fast"]
+  ],
+  "format": ["dotnet", "format", "Blazor.Untranslated.sln", "--verify-no-changes", "--include"],
+  "format_patterns": ["\\.cs$"]
+}

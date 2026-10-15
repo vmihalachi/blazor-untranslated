@@ -28,6 +28,9 @@ dotnet format --verify-no-changes
 scripts/verify.sh
 ```
 
+A Stop hook runs `scripts/verify.sh --fast` and `dotnet format --verify-no-changes` on the files you edited
+(`.claude/hooks/validate.json`); fix what it reports before ending.
+
 ## Conventions
 
 - **The rule relies on Razor's generated code**: the `#pragma checksum`, literals at `RenderTreeBuilder` call sites,
