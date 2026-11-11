@@ -43,7 +43,7 @@ dotnet add package Blazor.Untranslated
 ```
 
 The package is a development dependency: it adds nothing to your output and does not flow to projects that
-reference yours. It works with the .NET 8, 9 and 10 SDKs.
+reference yours. It works with the .NET 8, 9, 10 and 11 SDKs.
 
 ## Configuration
 
@@ -89,7 +89,7 @@ It relies on the shape of that generated code:
 - the `.razor` files passed to the compiler as additional files, which the analyzer uses to point at the line.
 
 A Razor compiler that changes these can silence the rule. The test suite builds fixture components on the .NET 8,
-9 and 10 SDKs and compares every reported line with markers in the fixtures, so such a change fails CI here first.
+9, 10 and 11 SDKs and compares every reported line with markers in the fixtures, so such a change fails CI here first.
 
 ## Develop
 

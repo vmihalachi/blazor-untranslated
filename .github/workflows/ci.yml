@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: ["8.0", "9.0", "10.0"]
+        sdk: ["8.0", "9.0", "10.0", "11.0"]
     steps:
       - uses: actions/checkout@v7
 
@@ -44,7 +44,7 @@ jobs:
           dotnet-version: ${{ matrix.sdk }}.x
 
       - name: Check formatting
-        if: matrix.sdk == '10.0'
+        if: matrix.sdk == '11.0'
         run: dotnet format --verify-no-changes
 
       - name: Test

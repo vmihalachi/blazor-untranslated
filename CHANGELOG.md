@@ -5,6 +5,10 @@ and the project uses [Semantic Versioning](https://semver.org/). Every change ge
 
 ## Unreleased
 
+### Changed
+- The repository builds and tests with the .NET 11 SDK, and the fixture tests also run on the .NET 11 SDK. The
+  package is unchanged: it stays on netstandard2.0 and Roslyn 4.8 and still loads in the .NET 8, 9 and 10 SDKs.
+
 ## 0.1.0 - 2026-10-09
 
 The first release: Adjudeca's `ADJ1001` analyzer, extracted and made generic.
