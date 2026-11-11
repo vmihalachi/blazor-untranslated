@@ -5,7 +5,7 @@
     analyzer. Every expected UNT001 is marked in the .razor files with a Razor comment on the same line.
   -->
   <PropertyGroup>
-    <FixtureTargetFramework Condition="'$(FixtureTargetFramework)' == ''">net10.0</FixtureTargetFramework>
+    <FixtureTargetFramework Condition="'$(FixtureTargetFramework)' == ''">net11.0</FixtureTargetFramework>
     <TargetFramework>$(FixtureTargetFramework)</TargetFramework>
     <Nullable>enable</Nullable>
     <UntranslatedAllowedTerms>Contoso,Pro</UntranslatedAllowedTerms>

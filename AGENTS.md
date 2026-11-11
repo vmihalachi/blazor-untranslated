@@ -16,7 +16,7 @@ whenever Adjudeca needs; there is no support for outside users.
 | `tests/Fixtures/Components/` | A Razor class library with one `.razor` file per case. Every expected diagnostic is a `@*UNT001*@` marker on the line the error points at; a file without markers must build clean. Never part of the solution. |
 | `site/` | The GitHub Pages site (static HTML, no build), published by `pages.yml`. |
 | `scripts/verify.sh` | Version agreement, formatting and the tests; `--fast` skips the tests. |
-| `.github/workflows/` | `ci.yml` (fixtures on the .NET 8, 9 and 10 SDKs), `release.yml` (tag → NuGet + GitHub release), `pages.yml`. |
+| `.github/workflows/` | `ci.yml` (fixtures on the .NET 8, 9, 10 and 11 SDKs), `release.yml` (tag → NuGet + GitHub release), `pages.yml`. |
 
 ## Commands
 

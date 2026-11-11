@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blazor.Untranslated: untranslated text fails the build</title>
-<meta name="description" content="Blazor.Untranslated is an MIT Roslyn analyzer that fails the build when a Blazor component renders literal text instead of a localized resource. Rule UNT001, for .NET 8, 9 and 10.">
+<meta name="description" content="Blazor.Untranslated is an MIT Roslyn analyzer that fails the build when a Blazor component renders literal text instead of a localized resource. Rule UNT001, for .NET 8, 9, 10 and 11.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:title" content="Blazor.Untranslated">
 <meta property="og:description" content="Untranslated text in Blazor components fails the build. A Roslyn analyzer, MIT.">
@@ -248,6 +248,7 @@ error UNT001</code>
       <span class="pass"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>.NET 8 SDK</span>
       <span class="pass"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>.NET 9 SDK</span>
       <span class="pass"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>.NET 10 SDK</span>
+      <span class="pass"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>.NET 11 SDK</span>
       <span class="verdict-note">A Razor compiler that changed this shape could silence the rule, so CI builds fixture components with the package on every supported SDK and compares each reported line with markers in the fixtures.</span>
     </div>
   </div>
@@ -274,7 +275,7 @@ error UNT001</code>
         <h3>Works with</h3>
         <p class="req">Any project that compiles <code>.razor</code> components</p>
         <ul>
-          <li>The .NET 8, 9 and 10 SDKs (built against Roslyn 4.8).</li>
+          <li>The .NET 8, 9, 10 and 11 SDKs (built against Roslyn 4.8).</li>
           <li>Blazor Server, WebAssembly, static server rendering and MAUI Blazor Hybrid.</li>
           <li>Any localization: <code>IStringLocalizer</code>, generated <code>.resx</code> classes, your own lookup.</li>
           <li>Not <code>.cshtml</code> views or Razor Pages.</li>
